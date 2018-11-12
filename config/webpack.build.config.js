@@ -48,7 +48,7 @@ module.exports = merge(baseWebpackConfig, {
     }),
     //在 plugin 中添加
     new CompressionWebpackPlugin({ //gzip 压缩
-      asset: '[path].gz[query]',
+      filename: '[path].gz[query]',
       algorithm: 'gzip',
       test: new RegExp(
         '\\.(js|css)$' //压缩 js 与 css
