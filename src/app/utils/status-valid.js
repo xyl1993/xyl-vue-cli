@@ -1,4 +1,3 @@
-import { timeoutText } from '../global/base.config';
 const httpStatus = require('http-status');
 /**
  * 
@@ -7,39 +6,41 @@ const httpStatus = require('http-status');
  * @param {*} message 
  */
 export const statusValid = (that, status, data) => {
-  if(status === httpStatus.OK){
-    return true
-  }
-  if (status === httpStatus.NOT_FOUND) {
+  if (that.actionStatus) that.actionStatus = false;
+  if (status === httpStatus.OK) {
+    if(data && data.code === httpStatus.OK) return true
     that.$message({
-      message: '请求不存在',
+      message: data.message,
       type: 'error'
     });
+    return false;
+  }else{
+    switch (status) {
+      case httpStatus.NOT_FOUND:
+        that.$message({
+          message: '请求不存在',
+          type: 'error'
+        });
+        break;
+      case httpStatus.UNAUTHORIZED:
+        that.$message({
+          message: data,
+          type: 'error'
+        });
+        break;
+      case httpStatus.METHOD_NOT_ALLOWED:
+        that.$message({
+          message: '请求方式出错',
+          type: 'error'
+        });
+        break;
+      default:
+        that.$message({
+          message: '服务器出错',
+          type: 'error'
+        });
+        break;
+    }
     return false
   }
-  if (status === httpStatus.UNAUTHORIZED) {
-    that.$message({
-      message: data,
-      type: 'error'
-    });
-    return false
-  }
-  if (status === httpStatus.FORBIDDEN) {
-    that.$message({
-      message: timeoutText,
-      type: 'warning',
-      duration: 2000,
-      onClose: () => {
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        that.$router.replace({ path: '/login' });
-      }
-    });
-    return false
-  }
-  that.$message({
-    message: '服务器出错',
-    type: 'error'
-  });
-  return false
 }

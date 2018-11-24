@@ -1,0 +1,31 @@
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+
+
+/* 覆盖默认样式 */
+$--base-size: 13px;
+
+.el-input__inner {
+  height: 36px;
+  line-height: 36px;
+}
+
+
+.el-scrollbar {
+  height: 100%;
+}
+
+.el-scrollbar__wrap {
+  overflow: scroll;
+  overflow-x: auto
+}
+
+// .el-breadcrumb {
+//   background: #fff;
+//   padding: 12px 32px 12px 20px;
+//   border-bottom: 1px solid #e8e8e8;
+//   font-size: $--base-size;
+// }

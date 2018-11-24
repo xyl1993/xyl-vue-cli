@@ -7,13 +7,16 @@
 </template>
 
 <script>
+import { apiConfig } from "./global/api.config";
+const noAppToken = new RegExp(apiConfig.noAppToken, "g"); //'g'
 export default {
   name: "app",
   components: {},
-  mounted() {}
+  mounted() {},
+  created() {}
 };
 </script>
 
 <style lang="scss">
-@import "./app.scss";
+@import "../assets/styles/app.scss";
 </style>

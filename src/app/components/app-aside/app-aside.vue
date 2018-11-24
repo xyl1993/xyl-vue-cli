@@ -11,7 +11,7 @@
             </el-menu-item>
           </template>
           <template v-else>
-            <el-submenu :index="index+''" v-if="!item.leaf" :key="item.index">
+            <el-submenu :index="index+''" v-if="!item.leaf" class="menu-item" :key="item.index">
               <template slot="title">
                 <i :class="item.iconCls"></i>{{item.name}}</template>
               <el-menu-item v-for="child in item.children" :index="child.path" :key="child.index" v-if="!child.hidden">{{child.name}}</el-menu-item>
@@ -27,16 +27,16 @@
     <ul class="el-menu el-menu-vertical-demo collapsed" v-show="collapsed" ref="menuCollapsed">
       <li v-for="(item,index) in asideList" v-if="!item.hidden" :key="item.index" class="el-submenu item" @click="!item.children.length>0&&$router.push(item.path)">
         <template v-if="!item.leaf">
-          <div class="el-submenu__title" style="padding-left: 20px;" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)">
+          <div class="el-submenu__title" style="padding-left: 13px;" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)">
             <i :class="item.iconCls"></i>
           </div>
-          <ul class="el-menu submenu" :class="'submenu-hook-'+index" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)">
+          <ul class="el-menu submenu slef-el-menu" :class="'submenu-hook-'+index" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)">
             <li v-for="child in item.children" v-if="!child.hidden" :key="child.path" class="el-menu-item" style="padding-left: 40px;" :class="$route.path==child.path?'is-active':''" @click="$router.push(child.path)">{{child.name}}</li>
           </ul>
         </template>
         <template v-else>
           <li class="el-submenu">
-            <div class="el-submenu__title el-menu-item" style="padding-left: 20px;height: 56px;line-height: 56px;padding: 0 20px;" :class="$route.path==item.children[0].path?'is-active':''" @click="$router.push(item.children[0].path)">
+            <div class="el-submenu__title el-menu-item" style="padding-left: 13px;height: 56px;line-height: 56px;padding: 0 13px;" :class="$route.path==item.children[0].path?'is-active':''" @click="$router.push(item.children[0].path)">
               <i :class="item.iconCls"></i>
             </div>
           </li>
@@ -48,7 +48,7 @@
 <script>
 import { apiConfig } from "../../global/api.config";
 import { statusValid } from "../../utils/status-valid";
-import { asideTree } from '../../global/app-aside.config';
+import { asideTree } from "../../global/app-aside.config";
 export default {
   data() {
     return {
@@ -56,9 +56,6 @@ export default {
     };
   },
   computed: {
-    userInfo() {
-      return this.$store.state.baseStore.userInfo;
-    },
     collapsed() {
       return this.$store.state.baseStore.collapsed;
     }
@@ -83,22 +80,69 @@ export default {
 };
 </script>
 <style lang="scss">
-.menu-expanded{
-  .el-submenu__icon-arrow{
-      left: 187px !important;
-      right: auto;
+@import "#/styles/theme.scss";
+.menu-expanded {
+  .el-submenu__icon-arrow {
+    left:$aside-width+(-35px) !important;
+    right: auto;
+  }
+  border-bottom-color: none;
+}
+.el-submenu__title {
+  color: $menu-color;
+  background-color: rgb(0, 20, 42);
+  &:hover {
+    background-color: transparent !important;
+    color: #fff;
+    i{
+      color: #fff;
+    }
+  }
+}
+.el-submenu.is-active .el-submenu__title {
+  border-bottom-color: none;
+}
+.main {
+  aside {
+    .menu-item {
+      color: $menu-color;
+      background-color: $menu-background-color;
+      .el-menu-item {
+        background-color: $menu-background-color;
+        color: $el-menu-color;
+      }
+    }
+    .el-submenu{
+      .el-menu-item {
+        background-color: $menu-background-color;
+        color: $el-menu-color;
+        &:hover{
+          color: #fff;
+          background: $base-aside-color;
+        }
+      }
+    }
+    .el-menu-item.is-active {
+      color: #fff;
+      background: $base-aside-color;
+    }
   }
 }
 </style>
 
 <style lang="scss" scoped>
+@import "#/styles/theme.scss";
 .main {
   aside {
-    flex: 0 0 217px;
-    width: 217px;
+    flex: 0 0 $aside-width;
+    width: $aside-width;
     height: 100%;
     .el-menu {
       height: 100%;
+      background-color: $base-aside-color;
+    }
+    .slef-el-menu{
+      color:$menu-color;
     }
     .collapsed {
       width: 60px;
@@ -108,7 +152,7 @@ export default {
       .submenu {
         position: absolute;
         top: 0px;
-        left: 60px;
+        left: 59px;
         z-index: 99999;
         height: auto;
         display: none;
@@ -128,6 +172,7 @@ export default {
       height: 100%;
     }
   }
+
   .menu-expanded {
     // flex:0 0 230px;
     // width: 230px;
@@ -135,13 +180,13 @@ export default {
     .auto-aside {
       overflow: hidden;
       position: absolute;
-      width: 217px;
+      width: $aside-width;
       left: 0;
       border-right: solid 1px #e6e6e6;
       top: 0;
       height: 100%;
       .el-menu {
-        width: 237px;
+        width: $aside-width+20px;
       }
       .el-menu-vertical-demo {
         overflow-y: auto !important;
@@ -149,10 +194,5 @@ export default {
     }
   }
 }
-.el-menu-item.is-active {
-  color: #337ab7;
-  background: #f5f7fa;
-}
-
 </style>
 

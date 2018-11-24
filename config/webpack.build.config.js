@@ -1,21 +1,15 @@
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CompressionWebpackPlugin = require('compression-webpack-plugin');
 const safeParser = require('postcss-safe-parser');
 //css压缩
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var path = require('path');
 var ROOT_PATH = path.resolve(__dirname);
-var utils = require('../build/utils');
 
 const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.conf');
 
-function resolve(dir) {
-  return path.join(__dirname, '..', dir)
-}
 module.exports = merge(baseWebpackConfig, {
 
   mode: 'production',
@@ -41,11 +35,8 @@ module.exports = merge(baseWebpackConfig, {
     }
   },
   plugins: [
-    new ExtractTextPlugin('[name].[contenthash].css'),
-    //在 plugins 中添加
-    new MiniCssExtractPlugin({
-      filename: utils.assetsPath("css/[name]_[chunkhash].css")
-    }),
+    //显示打包资源大小分布
+    // new BundleAnalyzerPlugin(),
     //在 plugin 中添加
     new CompressionWebpackPlugin({ //gzip 压缩
       filename: '[path].gz[query]',

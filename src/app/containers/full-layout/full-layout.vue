@@ -8,9 +8,6 @@
       <app-aside></app-aside>
       <!-- aside end -->
       <section class="content-container el-row">
-        <!-- sidebar start -->
-        <app-sidebar></app-sidebar>
-        <!-- sidebar end -->
         <div class="content-wrapper">
           <transition name="fade" mode="out-in">
             <router-view></router-view>

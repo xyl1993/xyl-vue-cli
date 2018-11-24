@@ -1,0 +1,7 @@
+/* 覆盖LiquorTree 的默认样式 */
+.tree-arrow{
+  margin-left: 0;
+  &.has-child{
+    width: 19px;
+  }
+}

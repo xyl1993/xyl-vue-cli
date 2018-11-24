@@ -1,19 +1,15 @@
 export const asideTree = {
   roleFun: [{
-    "name": "首页",
-    "id": "cointer",
-    "alienName": '首页',
-    "iconCls": "el-icon-star-off",
-    "path": "/cointer",
-    "children": []
-  },{
-    "name": "商品管理",
-    "id": "shopList",
-    "alienName": '商品管理',
-    "iconCls": "iconfont icon-shangpin",
+    "name": "系统管理",
+    "alienName": '系统管理',
+    "iconCls": "iconfont icon-xitong",
     "path": "",
     "children": [
-      {id: '0-1', path: '/shopList', name: '商品列表' },
+      {path: '/sysUser', name: '系统用户' },
+      {path: '/menu', name: '菜单管理' },
+      {path: '/company', name: '单位管理' },
+      {path: '/sysRole', name: '角色管理' },
+      {path: '/minaAccount', name: '小程序用户' },
     ]
   }]
 };

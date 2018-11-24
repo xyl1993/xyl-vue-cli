@@ -1,6 +1,6 @@
 <template>
   <el-breadcrumb separator="/">
-    <el-breadcrumb-item v-if="$route.path.indexOf('cointer')==-1" v-for="item in $route.matched" :key="item.path">
+    <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
       {{ item.name }}
     </el-breadcrumb-item>
   </el-breadcrumb>
@@ -18,6 +18,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+
 .breadcrumb-container {
   .title {
     width: 200px;

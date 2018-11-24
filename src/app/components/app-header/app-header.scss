@@ -1,50 +1,76 @@
-@import '../../../assets/common/styles.scss';
+@import "#/styles/theme.scss";
 .header {
-    height: 60px;
-    line-height: 60px;
-    background: $color-primary;
-    color:#fff;
-    .userinfo {
-        text-align: right;
-        padding-right: 35px;
-        float: right;
-        .userinfo-inner {
-            cursor: pointer;
-            color:#fff;
-            img {
-                margin: 14px 0px 10px 10px;
-                float: left;
-            }
-        }
+  height: $header-height;
+  line-height: $header-height;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+  position: relative;
+  z-index: 99;
+  .userinfo {
+    text-align: right;
+    padding-right: 35px;
+    float: right;
+
+    .userinfo-inner {
+      cursor: pointer;
+      img {
+        width: 20px;
+        margin: 18px 0px 10px 10px;
+        float: left;
+      }
     }
-    .logo {
-        //width:230px;
-        height:60px;
-        font-size: 22px;
-        padding-left:20px;
-        padding-right:20px;
-        border: 1px solid rgba(238,241,146,0.3);
-        img {
-            width: 120px;
-            float: left;
-            margin-top: 12px;
-        }
-        .txt {
-            color:#fff;
-        }
+  }
+
+  .logo {
+    //width:230px;
+    height: $header-height;
+    font-size: 22px;
+    padding-left: 13px;
+    padding-right: 20px;
+    background: #002140;
+    color: #fdfdfd;
+
+    img {
+      display: inline-block;
+      vertical-align: middle;
+      height: 32px;
     }
-    .logo-width{
-        width:217px;
+
+    h1 {
+      color: #fff;
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 20px;
+      margin: 0 0 0 2px;
+      font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+      font-weight: 600;
     }
-    .logo-collapse-width{
-        width:60px
+
+    .txt {
+      color: #fff;
     }
-    .tools{
-        padding: 0px 20px;
-        width:14px;
-        height: 60px;
-        line-height: 60px;
-        cursor: pointer;
-    }
+  }
+  .el-breadcrumb{
+    height: $header-height;
+    line-height: $header-height;
+    padding-left: 20px;
+  }
+  .logo-width {
+    width: $aside-width;
+  }
+
+  .logo-collapse-width {
+    width: $aside-smile-width;
+  }
+
+  .tools {
+    padding: 0px 20px;
+    width: 14px;
+    height: $header-height;
+    line-height: $header-height;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    color: #fff;
+  }
 }
-    

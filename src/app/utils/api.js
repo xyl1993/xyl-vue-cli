@@ -1,23 +1,22 @@
 import axios from 'axios'
 import qs from 'qs'
 import NProgress from 'nprogress'
-import {
-  apiConfig
-} from '../global/api.config';
+import { apiConfig } from '../global/api.config';
+import { getToken } from '../utils/auth';
 
 const timeout = 30000;
 const allowUrls = new RegExp(apiConfig.allowUrls); //'g'
 const noJsonTypeUrls = new RegExp(apiConfig.noJsonTypeUrls); //'g'
 function createAuthorizationHeader(url) {
   if (!allowUrls.test(url)) {
-    let token = localStorage.getItem('app-token');
+    let token = getToken();
     if (noJsonTypeUrls.test(url)) {
       return {
-        "app-token": token
+        "token": token
       }
     } else {
       return {
-        "app-token": token,
+        "token": token,
         "Content-Type": "application/json;charset=UTF-8"
       }
     }
@@ -54,7 +53,6 @@ function checkStatus(response) {
       data: response.data,
     }
   }
-  return response
 }
 export default {
   post(url, data) {
@@ -73,6 +71,30 @@ export default {
       method: 'get',
       url: apiConfig.base_api_host + url,
       params: data,
+      timeout: timeout,
+      headers: createAuthorizationHeader(url)
+    }).then(checkStatus).catch(function (error) {
+      console.log(error);
+      return error
+    });
+  },
+  delete(url, data) {
+    return axios({
+      method: 'delete',
+      url: apiConfig.base_api_host + url,
+      params: data,
+      timeout: timeout,
+      headers: createAuthorizationHeader(url)
+    }).then(checkStatus).catch(function (error) {
+      console.log(error);
+      return error
+    });
+  },
+  put(url, data) {
+    return axios({
+      method: 'put',
+      url: apiConfig.base_api_host + url,
+      data: JSON.stringify(data),
       timeout: timeout,
       headers: createAuthorizationHeader(url)
     }).then(checkStatus).catch(function (error) {
